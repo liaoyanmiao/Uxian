@@ -8,14 +8,27 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.orhanobut.logger.Logger;
+
 import org.leo.uxian.adpter.ViewPagerAdapter;
+import org.leo.uxian.entity.Translation;
 import org.leo.uxian.fragment.MainFragment;
+import org.leo.uxian.http.IHttpRequest;
 import org.leo.uxian.presenter.impl.MainActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends BaseActivity<MainActivityPresenter> implements View.OnClickListener,ViewPager.OnPageChangeListener{
 
@@ -91,6 +104,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
                 setDrawable(idTvMine,R.drawable.tab_mine_nor);
                 break;
             case R.id.id_tvDiscover:
+                test();
                 idTvMain.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
                 setDrawable(idTvMain,R.drawable.tab_home_nor);
 
@@ -153,5 +167,38 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void test(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://fy.iciba.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        IHttpRequest request = retrofit.create(IHttpRequest.class);
+        Observable<Translation> observable = request.queryPage();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Translation>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Logger.d("开始采用subscribe连接");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Translation s) {
+                        s.show();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Logger.d("请求失败");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Logger.d("请求成功");
+                    }
+                });
     }
 }
