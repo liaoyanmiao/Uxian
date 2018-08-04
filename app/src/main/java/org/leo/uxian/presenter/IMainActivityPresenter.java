@@ -5,5 +5,5 @@ package org.leo.uxian.presenter;
  */
 
 public interface IMainActivityPresenter {
-    void queryPage();
+    void test();
 }

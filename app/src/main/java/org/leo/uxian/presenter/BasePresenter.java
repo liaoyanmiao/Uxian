@@ -2,6 +2,8 @@ package org.leo.uxian.presenter;
 
 import android.content.Context;
 
+import org.leo.uxian.view.IView;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -10,8 +12,14 @@ import java.lang.ref.WeakReference;
  * Created by Administrator on 2018/7/24.
  */
 
-public abstract class BasePresenter{
-    private Reference<Context> mReference = null;
+public abstract class BasePresenter<T extends IView>{
+    protected Reference<Context> mReference = null;
+    protected T view;
+
+    public BasePresenter(T view) {
+        this.view = view;
+    }
+
     public void onAttach(Context context) {
         mReference = new WeakReference<>(context);
     }

@@ -25,12 +25,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         //绑定控件
         unbinder = ButterKnife.bind(this);
         //初始化沉浸式
-        if (isImmersionBarEnabled())
+        if (isImmersionBarEnabled()) {
             initImmersionBar();
+        }
         //创建代理，用于统一数据访问
         mPresenter = createPresenter();
-        if (mPresenter != null)
+        if (mPresenter != null) {
             mPresenter.onAttach(context);
+        }
         //初始化日志
         Logger.addLogAdapter(new AndroidLogAdapter(){
             @Override
@@ -43,12 +45,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (unbinder != null)
+        if (unbinder != null) {
             unbinder.unbind();
-        if (mImmersionBar != null)
+        }
+        if (mImmersionBar != null) {
             mImmersionBar.destroy();
-        if (mPresenter != null)
+        }
+        if (mPresenter != null) {
             mPresenter.onDetach();
+        }
     }
 
     /**

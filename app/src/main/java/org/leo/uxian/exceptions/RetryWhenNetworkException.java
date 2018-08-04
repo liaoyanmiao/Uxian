@@ -57,7 +57,7 @@ public class RetryWhenNetworkException implements Function<Observable<Throwable>
                          * 需求4：遇到的异常越多，时间越长
                          * 在delay操作符的等待时间内设置 = 每重试1次，增多延迟重试时间1s
                          */
-                        Observable.timer(delay + (wrapper.index - 1) * increaseDelay, TimeUnit.MILLISECONDS);
+                        return Observable.timer(delay + (wrapper.index - 1) * increaseDelay, TimeUnit.MILLISECONDS);
                     }
                 }
                 // 若重试次数已 > 设置重试次数，或发生的异常不属于I/O异常，则不重试

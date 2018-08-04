@@ -13,17 +13,20 @@ import android.view.ViewGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
 
+import org.leo.uxian.presenter.BasePresenter;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     protected AppCompatActivity context;
     protected View mRootView;
     protected ImmersionBar mImmersionBar;
     private Unbinder unbinder;
+    protected T mPresenter;
     /**
      * 是否对用户可见
      */
@@ -70,6 +73,11 @@ public abstract class BaseFragment extends Fragment {
         }
         initView();
         setListener();
+        //创建代理，用于统一数据访问
+        mPresenter = createPresenter();
+        if (mPresenter != null) {
+            mPresenter.onAttach(context);
+        }
     }
 
     @Override
@@ -92,10 +100,15 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (unbinder != null)
+        if (unbinder != null) {
             unbinder.unbind();
-        if (mImmersionBar != null)
+        }
+        if (mImmersionBar != null) {
             mImmersionBar.destroy();
+        }
+        if (mPresenter != null) {
+            mPresenter.onDetach();
+        }
     }
 
     /**
@@ -118,6 +131,7 @@ public abstract class BaseFragment extends Fragment {
      * 初始化数据
      */
     protected void initData() {
+        //do something here
     }
     /**
      * 是否在Fragment使用沉浸式
@@ -158,4 +172,5 @@ public abstract class BaseFragment extends Fragment {
         onLazyLoad();
     }
     protected abstract int setLayoutId();
+    protected abstract T createPresenter();
 }

@@ -1,5 +1,6 @@
 package org.leo.uxian.http;
 
+import org.leo.uxian.entity.BaseResultEntity;
 import org.leo.uxian.entity.Translation;
 
 import io.reactivex.Observable;
@@ -15,5 +16,5 @@ public interface IHttpRequest {
      * 宣传列表
      */
     @GET("ajax.php?a=fy&f=auto&t=auto&w=hi%20world")
-    Observable<Translation> queryPage();
+    Observable<BaseResultEntity<Translation>> test();
 }
