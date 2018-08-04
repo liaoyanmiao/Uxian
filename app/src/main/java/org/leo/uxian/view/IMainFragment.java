@@ -1,5 +1,6 @@
 package org.leo.uxian.view;
 
 public interface IMainFragment extends IView {
-    void testUi();
+    //炫染宣传接口数据
+    void showPropagandaQueryPage();
 }

@@ -6,18 +6,18 @@ package org.leo.uxian.entity;
  */
 public class BaseResultEntity<T> {
     //  判断标示
-    private int status = -1;
+    private int code = -1;
     //  提示信息
     private String msg;
     //  显示数据（用户需要关心的数据）
-    private T content;
+    private T data;
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMsg() {
@@ -28,11 +28,11 @@ public class BaseResultEntity<T> {
         this.msg = msg;
     }
 
-    public T getContent() {
-        return content;
+    public T getData() {
+        return data;
     }
 
-    public void setContent(T content) {
-        this.content = content;
+    public void setData(T data) {
+        this.data = data;
     }
 }

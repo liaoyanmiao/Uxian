@@ -8,12 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-
 import org.leo.uxian.adpter.ViewPagerAdapter;
 import org.leo.uxian.fragment.MainFragment;
 import org.leo.uxian.presenter.impl.MainActivityPresenter;
-import org.leo.uxian.view.IMainFragment;
+import org.leo.uxian.view.IMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainActivityPresenter> implements View.OnClickListener,
-        ViewPager.OnPageChangeListener,IMainFragment{
+        ViewPager.OnPageChangeListener,IMainActivity{
 
     @BindView(R.id.id_viewPage)
     ViewPager idViewPage;
@@ -95,7 +93,6 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
                 setDrawable(idTvMine,R.drawable.tab_mine_nor);
                 break;
             case R.id.id_tvDiscover:
-                mPresenter.test();
                 idTvMain.setTextColor(ContextCompat.getColor(context,R.color.darkgray));
                 setDrawable(idTvMain,R.drawable.tab_home_nor);
 
@@ -160,8 +157,4 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
 
     }
 
-    @Override
-    public void testUi() {
-        Logger.d("MainActivity");
-    }
 }

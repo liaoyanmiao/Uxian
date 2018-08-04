@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 
-import com.orhanobut.logger.Logger;
-
 import org.leo.uxian.R;
-import org.leo.uxian.presenter.impl.MainActivityPresenter;
+import org.leo.uxian.presenter.impl.MainFragmentPresenter;
 import org.leo.uxian.view.IMainFragment;
 
 import butterknife.BindView;
@@ -16,7 +14,7 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends BaseFragment<MainActivityPresenter> implements View.OnClickListener,IMainFragment{
+public class MainFragment extends BaseFragment<MainFragmentPresenter> implements View.OnClickListener,IMainFragment{
     @BindView(R.id.button)
     Button button;
     public MainFragment() {
@@ -34,17 +32,17 @@ public class MainFragment extends BaseFragment<MainActivityPresenter> implements
     }
 
     @Override
-    protected MainActivityPresenter createPresenter() {
-        return new MainActivityPresenter(this);
+    protected MainFragmentPresenter createPresenter() {
+        return new MainFragmentPresenter(this);
     }
 
     @Override
     public void onClick(View v) {
-        mPresenter.test();
+        mPresenter.invokePropagandaQueryPage();
     }
 
     @Override
-    public void testUi() {
-        Logger.d("MainFragment");
+    public void showPropagandaQueryPage() {
+
     }
 }

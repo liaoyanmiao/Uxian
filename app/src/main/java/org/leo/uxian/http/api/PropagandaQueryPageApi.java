@@ -6,15 +6,15 @@ import org.leo.uxian.http.IHttpRequest;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
 
-public class TestApi extends BaseApi{
-    public TestApi(HttpResponseListener listener) {
+public class PropagandaQueryPageApi extends BaseApi{
+    public PropagandaQueryPageApi(HttpResponseListener listener) {
         super(listener);
-        setLogger(true);
+        setLogger(false);
     }
 
     @Override
     public Observable getObservable(Retrofit retrofit) {
         IHttpRequest request = retrofit.create(IHttpRequest.class);
-        return request.test();
+        return request.propagandaQueryPage();
     }
 }

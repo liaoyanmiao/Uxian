@@ -15,7 +15,7 @@ public abstract class BaseApi<T> implements Function<BaseResultEntity<T>,T>{
     /*回调*/
     private SoftReference<HttpResponseListener> listener;
     /*基础url*/
-    private String baseUrl = "http://fy.iciba.com/";
+    private String baseUrl = "http://120.79.143.68:18080/";
     /*超时时间-默认6秒*/
     private int connectionTime = 6;
     /* 失败后retry次数*/
@@ -95,9 +95,9 @@ public abstract class BaseApi<T> implements Function<BaseResultEntity<T>,T>{
     public abstract Observable getObservable(Retrofit retrofit);
     @Override
     public T apply(BaseResultEntity<T> httpResult) {
-        if (httpResult.getStatus() != 200) {
+        if (httpResult.getCode() != 200) {
             Logger.d(httpResult.getMsg());
         }
-        return httpResult.getContent();
+        return httpResult.getData();
     }
 }

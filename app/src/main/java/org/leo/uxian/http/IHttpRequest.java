@@ -1,7 +1,9 @@
 package org.leo.uxian.http;
 
 import org.leo.uxian.entity.BaseResultEntity;
-import org.leo.uxian.entity.Translation;
+import org.leo.uxian.entity.PropagandaQueryPageEntity;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -13,8 +15,8 @@ import retrofit2.http.GET;
 
 public interface IHttpRequest {
     /**
-     * 宣传列表
+     * 宣传页面查询列表
      */
-    @GET("ajax.php?a=fy&f=auto&t=auto&w=hi%20world")
-    Observable<BaseResultEntity<Translation>> test();
+    @GET("propaganda-proivder-server/propaganda/queryPage")
+    Observable<BaseResultEntity<List<PropagandaQueryPageEntity>>> propagandaQueryPage();
 }

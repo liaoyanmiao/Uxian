@@ -29,7 +29,6 @@ public class HttpResponseObserver<T> implements Observer<T> {
      */
     @Override
     public void onSubscribe(Disposable d) {
-
     }
 
     /**
