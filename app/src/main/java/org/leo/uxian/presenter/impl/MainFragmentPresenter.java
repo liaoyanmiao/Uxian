@@ -24,8 +24,8 @@ public class MainFragmentPresenter extends BasePresenter<IMainFragment> implemen
     public void invokePropagandaQueryPage() {
         iHttpModel.executePropagandaQueryPage(new HttpResponseListener<List<PropagandaQueryPageEntity>>() {
             @Override
-            public void onSuccess(List<PropagandaQueryPageEntity> s) {
-                view.showPropagandaQueryPage();
+            public void onSuccess(List<PropagandaQueryPageEntity> list) {
+                view.showPropagandaQueryPage(list);
             }
 
             @Override

@@ -1,15 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="org.leo.uxian.fragment.MainFragment">
+             tools:context="org.leo.uxian.fragment.MainFragment"
+             android:id="@+id/refreshLayout">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="Test Api"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24小时达"
+            android:textColor="@color/burlywood"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="@string/today"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkgray"
+            android:text="@string/today_describe"
+            android:textSize="12sp"/>
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
 
-</FrameLayout>
+    </LinearLayout>
+
+
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

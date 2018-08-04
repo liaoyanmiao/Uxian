@@ -48,6 +48,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (unbinder != null) {
             unbinder.unbind();
         }
+        //不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
         if (mImmersionBar != null) {
             mImmersionBar.destroy();
         }
@@ -68,6 +69,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void initImmersionBar() {
         //在BaseActivity里初始化
         mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(true);
+        mImmersionBar.fitsSystemWindows(true);
         mImmersionBar.init();
     }
 

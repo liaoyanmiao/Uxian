@@ -145,6 +145,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
      */
     protected void initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(true);
+        mImmersionBar.fitsSystemWindows(true);
         mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
     }
     /**

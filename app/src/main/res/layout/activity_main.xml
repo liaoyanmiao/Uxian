@@ -6,6 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.leo.uxian.MainActivity">
+    <!--解决状态栏和布局顶部重合的view-->
+    <!--<View
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@android:color/transparent" />-->
     <!--页面容器-->
     <android.support.v4.view.ViewPager
         android:id="@+id/id_viewPage"
