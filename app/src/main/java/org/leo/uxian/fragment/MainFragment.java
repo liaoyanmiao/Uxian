@@ -10,9 +10,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.youth.banner.Banner;
 import com.youth.banner.Transformer;
 
@@ -34,7 +35,7 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends BaseFragment<MainFragmentPresenter> implements View.OnClickListener,IMainFragment{
+public class MainFragment extends BaseFragment<MainFragmentPresenter> implements IMainFragment{
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.refreshLayout)
@@ -45,7 +46,28 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
 
     @Override
     protected void setListener() {
-        refreshLayout.setOnClickListener(this);
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                mPresenter.invokePropagandaQueryPage();
+            }
+        });
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        showProgressDialog();
+        mPresenter.invokePropagandaQueryPage();
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        refreshLayout.setEnableLoadmore(false);
+        SinaRefreshView headerView = new SinaRefreshView(context);
+        headerView.setTextColor(0xff745D5C);
+        refreshLayout.setHeaderView(headerView);
     }
 
     @Override
@@ -59,11 +81,6 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
     }
 
     @Override
-    public void onClick(View v) {
-        mPresenter.invokePropagandaQueryPage();
-    }
-
-    @Override
     public void showPropagandaQueryPage(List<PropagandaQueryPageEntity> list) {
         List<File> images = new ArrayList<>();
         for (PropagandaQueryPageEntity entity : list) {
@@ -72,7 +89,8 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
             Bitmap bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
             saveBitmap(bitmap);
         }
-
+        dismiss();
+        refreshLayout.finishRefreshing();
         String path = Environment.getExternalStorageDirectory().getPath()
                 +"/decodeImage.jpg";
         File file = new File(path);

@@ -25,4 +25,9 @@
         <item name="android:padding">12dp</item>
         <item name="android:scaleType">centerInside</item>
     </style>
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorAccent">#ffE91E63</item>
+    </style>
 </resources>

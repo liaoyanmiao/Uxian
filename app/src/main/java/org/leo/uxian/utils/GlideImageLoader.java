@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.youth.banner.loader.ImageLoader;
 
 import java.io.File;
@@ -19,7 +21,11 @@ public class GlideImageLoader extends ImageLoader{
          切记不要胡乱强转！
          */
         //Glide 加载图片简单用法
-        Glide.with(context).load((File)path).transform(new RoundTransformation(context)).into(imageView);
+        //设置图片圆角角度
+        RoundedCorners roundedCorners= new RoundedCorners(60);
+        //通过RequestOptions扩展功能
+        RequestOptions options=RequestOptions.bitmapTransform(roundedCorners);
+        Glide.with(context).load((File)path).apply(options).into(imageView);
 
         //Picasso 加载图片简单用法
         //Picasso.with(context).load((String) path).transform(new PicassoRoundTransform()).into(imageView);

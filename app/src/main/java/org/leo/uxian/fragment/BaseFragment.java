@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
 
+import org.leo.uxian.R;
 import org.leo.uxian.presenter.BasePresenter;
+import org.leo.uxian.widgets.CustomDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,6 +29,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     protected ImmersionBar mImmersionBar;
     private Unbinder unbinder;
     protected T mPresenter;
+    private CustomDialog dialog;
     /**
      * 是否对用户可见
      */
@@ -62,6 +65,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, mRootView);
+        //创建代理，用于统一数据访问
+        mPresenter = createPresenter();
+        if (mPresenter != null) {
+            mPresenter.onAttach(context);
+        }
+        dialog = new CustomDialog(context, R.style.CustomDialog);
         if (isLazyLoad()) {
             mIsPrepare = true;
             mIsImmersion = true;
@@ -73,11 +82,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         }
         initView();
         setListener();
-        //创建代理，用于统一数据访问
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.onAttach(context);
-        }
     }
 
     @Override
@@ -148,6 +152,22 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         mImmersionBar.statusBarDarkFont(true);
         mImmersionBar.fitsSystemWindows(true);
         mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
+    }
+    /**
+     * 显示加载对话框
+     */
+    protected void showProgressDialog(){
+        if (dialog != null && !dialog.isShowing()) {
+            dialog.show();
+        }
+    }
+    /**
+     * 关闭加载对话框
+     */
+    protected void dismiss(){
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
     /**
      * view与数据绑定
